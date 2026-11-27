@@ -2,22 +2,21 @@
 
 import { useEffect, useState } from "react";
 
-/** Tap-to-check ingredients. Ticks are remembered on this device per recipe. */
-export function IngredientChecklist({ slug, ingredients }: { slug: string; ingredients: string[] }) {
-  const key = `ingredients:${slug}`;
+/** Tap-to-check list (ingredients, materials). Ticks are remembered on this device. */
+export function Checklist({ storageKey, items }: { storageKey: string; items: string[] }) {
   const [checked, setChecked] = useState<number[]>([]);
 
   useEffect(() => {
     try {
-      setChecked(JSON.parse(localStorage.getItem(key) ?? "[]"));
+      setChecked(JSON.parse(localStorage.getItem(storageKey) ?? "[]"));
     } catch {}
-  }, [key]);
+  }, [storageKey]);
 
   function toggle(i: number) {
     setChecked((prev) => {
       const next = prev.includes(i) ? prev.filter((n) => n !== i) : [...prev, i];
       try {
-        localStorage.setItem(key, JSON.stringify(next));
+        localStorage.setItem(storageKey, JSON.stringify(next));
       } catch {}
       return next;
     });
@@ -25,7 +24,7 @@ export function IngredientChecklist({ slug, ingredients }: { slug: string; ingre
 
   return (
     <ul className="divide-y divide-linen">
-      {ingredients.map((item, i) => {
+      {items.map((item, i) => {
         const on = checked.includes(i);
         return (
           <li key={i}>

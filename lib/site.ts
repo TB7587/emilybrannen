@@ -1,10 +1,11 @@
 // Everything brand-specific lives here. Change it once, it updates everywhere.
 export const site = {
   name: "Emily Brannen",
-  tagline: "Easy family recipes from my kitchen to yours",
+  tagline: "Projects, recipes and everyday life from our home to yours",
+  headline: "Projects, recipes and the simple life at home.",
   authorName: "Emily Brannen",
   intro:
-    "Hi, I'm so glad you're here! I share the simple, cozy recipes my own family asks for again and again. Nothing fussy, just good food you can get on the table tonight.",
+    "I'm so glad you're here! This is where I share the projects we're building, the recipes my family asks for again and again, and the little everyday things that make a house feel like home.",
   authorPhoto: "/images/author.jpg",
   // Used for canonical URLs, JSON-LD and share images.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://emilybrannen.com",

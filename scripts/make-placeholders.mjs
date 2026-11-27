@@ -31,6 +31,12 @@ const images = [
   ["recipes/honey-butter-skillet-corn.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#e2d5bf", accent: "#d9b56a", label: "Honey Butter Skillet Corn" }],
   ["recipes/lemon-garlic-chicken-potatoes.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#dccbb6", accent: "#b9825a", label: "Lemon Garlic Chicken & Potatoes" }],
   ["recipes/brown-sugar-banana-bread.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#d6c4ad", accent: "#8f6a4a", label: "Brown Sugar Banana Bread" }],
+  // Project heroes, 4:3
+  ["projects/cedar-raised-garden-bed.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#d9d3bf", accent: "#8e9a78", label: "Cedar Raised Garden Bed" }],
+  ["projects/board-and-batten-entry-wall.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#d8d2c8", accent: "#a9a59c", label: "Board and Batten Entry Wall" }],
+  // Lifestyle heroes, 4:3
+  ["lifestyle/slow-sunday-morning.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#e0d3c2", accent: "#c7a98a", label: "Our Slow Sunday Morning" }],
+  ["lifestyle/simple-farmhouse-table.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#dcd3c4", accent: "#b5a48c", label: "A Simple Farmhouse Table" }],
   // Portrait
   ["author.jpg", { w: 800, h: 800, from: "#f2ede4", to: "#ddd4c6", accent: "#cdbfae", label: "Your photo here", sub: "800 x 800" }],
   // Products, square
@@ -47,6 +53,10 @@ const images = [
     ["dutch-oven", "Dutch Oven", "#b8442a"],
     ["chef-knife", "Chef's Knife", "#6f7477"],
     ["storage-containers", "Glass Containers", "#8fb3b0"],
+    ["cordless-drill", "Cordless Drill", "#6f7477"],
+    ["speed-square", "Speed Square", "#a9a59c"],
+    ["brad-nailer", "Brad Nailer", "#8a8f86"],
+    ["level", "4 ft Level", "#b5a48c"],
   ].map(([file, label, accent]) => [
     `products/${file}.jpg`,
     { w: 800, h: 800, from: "#faf7f2", to: "#ece4d7", accent, label, sub: "product photo" },

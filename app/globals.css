@@ -41,7 +41,7 @@ h1, h2, h3 {
 }
 
 /* Section anchors shouldn't hide under the sticky header. */
-[id] { scroll-margin-top: 5rem; }
+[id] { scroll-margin-top: 4rem; }
 
 @layer components {
   /* All buttons are at least 52px tall: easy thumb targets. */
@@ -54,6 +54,12 @@ h1, h2, h3 {
   .prose-intro p { @apply mb-4; }
   .prose-intro a { @apply text-barn underline underline-offset-4; }
   .prose-intro strong { @apply font-medium; }
+  .prose-intro h2 { @apply mb-3 mt-9 text-[1.9rem]; }
+  .prose-intro h3 { @apply mb-2 mt-7 text-[1.5rem]; }
+  .prose-intro ul { @apply mb-4 list-disc space-y-1.5 pl-6; }
+  .prose-intro ol { @apply mb-4 list-decimal space-y-1.5 pl-6; }
+  .prose-intro li::marker { @apply text-barn; }
+  .prose-intro blockquote { @apply my-6 border-l border-ink/40 pl-5 font-display text-[1.45rem] italic leading-snug; }
 }
 
 @media (prefers-reduced-motion: reduce) {

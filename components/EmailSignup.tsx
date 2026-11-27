@@ -11,8 +11,8 @@ type Props = {
 };
 
 export function EmailSignup({
-  heading = "Get my recipes each week",
-  blurb = "One email, every week, with my newest recipes. No spam, ever.",
+  heading = "Get my latest each week",
+  blurb = "One email, every week, with my newest projects and recipes. No spam, ever.",
   placement,
 }: Props) {
   const [email, setEmail] = useState("");
@@ -42,7 +42,7 @@ export function EmailSignup({
 
       {status === "done" ? (
         <p role="status" className="mx-auto mt-5 max-w-md border border-linen bg-cream px-5 py-4 text-ink">
-          You're on the list! Watch your inbox for this week's recipes.
+          You're on the list! Watch your inbox this week.
         </p>
       ) : (
         <form onSubmit={onSubmit} className="mx-auto mt-6 flex max-w-lg flex-col gap-3 sm:flex-row">
@@ -62,7 +62,7 @@ export function EmailSignup({
             className="min-h-13 w-full flex-1 rounded-[3px] border border-ink/40 bg-white px-5 text-base text-ink placeholder:text-ink-soft focus:border-ink focus:outline-none"
           />
           <button type="submit" disabled={status === "sending"} className="btn btn-primary disabled:opacity-70">
-            {status === "sending" ? "Signing up…" : "Send me recipes"}
+            {status === "sending" ? "Signing up…" : "Sign me up"}
           </button>
         </form>
       )}

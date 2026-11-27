@@ -34,9 +34,11 @@ export function Footer() {
           ))}
         </div>
 
-        <nav aria-label="Footer" className="mt-5 flex justify-center gap-2 text-[0.74rem] font-medium uppercase tracking-[0.18em]">
-          <Link href="/" className="flex h-12 items-center px-3">Recipes</Link>
-          <Link href="/shop" className="flex h-12 items-center px-3">Shop my kitchen</Link>
+        <nav aria-label="Footer" className="mt-5 flex flex-wrap justify-center text-[0.72rem] font-medium uppercase tracking-[0.18em]">
+          <Link href="/recipes" className="flex h-12 items-center px-2.5">Recipes</Link>
+          <Link href="/projects" className="flex h-12 items-center px-2.5">Projects</Link>
+          <Link href="/lifestyle" className="flex h-12 items-center px-2.5">Lifestyle</Link>
+          <Link href="/shop" className="flex h-12 items-center px-2.5">Shop</Link>
         </nav>
 
         <Disclosure className="mt-5" />

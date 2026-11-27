@@ -1,5 +1,5 @@
 import Image from "next/image";
-import type { Product } from "@/lib/recipes";
+import type { Product } from "@/lib/content";
 import { OutboundLink } from "./OutboundLink";
 
 export function ProductCard({ product, placement }: { product: Product; placement: string }) {

@@ -1,4 +1,4 @@
-import type { Product } from "./recipes";
+import type { Product } from "./content";
 
 // The Shop page. Add, remove or reorder products and categories here.
 // TODO: replace the placeholder Amazon URLs with real affiliate links.

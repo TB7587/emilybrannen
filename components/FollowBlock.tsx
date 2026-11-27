@@ -8,14 +8,14 @@ const socials = [
   { name: "TikTok", href: site.social.tiktok, Icon: TikTokIcon },
 ];
 
-export function FollowBlock() {
+export function FollowBlock({ heading, placement }: { heading: string; placement: string }) {
   return (
     <section className="no-print border-y border-ink/30 px-2 py-10 text-center">
-      <h2 className="text-[2rem]">Follow for tomorrow's recipe</h2>
-      <p className="mt-2 text-ink-soft">I post something new every day. Come cook along!</p>
+      <h2 className="text-[2rem]">{heading}</h2>
+      <p className="mt-2 text-ink-soft">I post something new every day. Come along!</p>
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
         {socials.map(({ name, href, Icon }) => (
-          <OutboundLink key={name} href={href} label={name} placement="recipe:follow" className="btn btn-outline">
+          <OutboundLink key={name} href={href} label={name} placement={placement} className="btn btn-outline">
             <Icon />
             {name}
           </OutboundLink>
