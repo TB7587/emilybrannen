@@ -38,11 +38,11 @@ export function Footer() {
           <Link href="/recipes" className="flex h-12 items-center px-2.5">Recipes</Link>
           <Link href="/projects" className="flex h-12 items-center px-2.5">Projects</Link>
           <Link href="/lifestyle" className="flex h-12 items-center px-2.5">Lifestyle</Link>
-          <Link href="/shop" className="flex h-12 items-center px-2.5">Shop</Link>
+          {site.shop && <Link href="/shop" className="flex h-12 items-center px-2.5">Shop</Link>}
         </nav>
 
-        <Disclosure className="mt-5" />
-        <p className="mt-2 text-sm text-ink-soft">
+        {site.shop && <Disclosure className="mt-5" />}
+        <p className={`${site.shop ? "mt-2" : "mt-5"} text-sm text-ink-soft`}>
           © {new Date().getFullYear()} {site.name}
         </p>
       </div>

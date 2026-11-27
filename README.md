@@ -145,6 +145,10 @@ Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted
 - All photos in `public/images/` (regenerate the placeholders with `node scripts/make-placeholders.mjs`).
 - Every `amazon.com/dp/PLACEHOLDER…?tag=yourtag-20` URL, the storefront URL and the social links.
 
+## Shop
+
+**Currently switched off.** The Shop link, the "Shop my kitchen" button, the `/shop` page and the Amazon line in the footer are hidden while `shop` is `false` in `lib/site.ts`. Set it to `true` to bring them back. Products listed on an individual post still show, with the Amazon disclosure beside them.
+
 ## Email signup
 
 **Currently switched off.** The signup box is hidden everywhere while `newsletter` is `false` in `lib/site.ts`. Set it to `true` to bring it back.

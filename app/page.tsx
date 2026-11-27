@@ -48,9 +48,11 @@ export default function HomePage() {
           </Link>
         ))}
       </nav>
-      <div className="mx-auto mt-3 max-w-2xl">
-        <Link href="/shop" className="btn btn-primary w-full">Shop my kitchen</Link>
-      </div>
+      {site.shop && (
+        <div className="mx-auto mt-3 max-w-2xl">
+          <Link href="/shop" className="btn btn-primary w-full">Shop my kitchen</Link>
+        </div>
+      )}
 
       <HeartRule className="mt-14" />
 

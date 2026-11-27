@@ -7,7 +7,7 @@ const nav = [
   { href: "/recipes", label: "Recipes" },
   { href: "/projects", label: "Projects" },
   { href: "/lifestyle", label: "Lifestyle" },
-  { href: "/shop", label: "Shop" },
+  ...(site.shop ? [{ href: "/shop", label: "Shop" }] : []),
 ];
 
 export function Header() {
@@ -23,7 +23,7 @@ export function Header() {
         aria-label="Main"
         className="no-print sticky top-0 z-20 border-b border-linen bg-cream/95 backdrop-blur"
       >
-        <ul className="mx-auto flex max-w-md items-center justify-between px-3 text-[0.72rem] font-medium uppercase tracking-[0.16em]">
+        <ul className="mx-auto flex max-w-md items-center justify-around px-3 text-[0.72rem] font-medium uppercase tracking-[0.16em]">
           {nav.map((n) => (
             <li key={n.href}>
               <Link href={n.href} className="flex h-12 items-center px-2.5">

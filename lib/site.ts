@@ -16,6 +16,9 @@ export const site = {
     tiktok: "https://www.tiktok.com/@yourhandle",
   },
   amazonStorefront: "https://www.amazon.com/shop/yourhandle",
+  // "Shop my kitchen" is switched off for now: no Shop link, button or page, and no Amazon
+  // line in the footer. Set to true to bring it all back.
+  shop: false,
   // The weekly email signup is switched off for now. Set to true to bring it back everywhere.
   newsletter: false,
   disclosure: "As an Amazon Associate I earn from qualifying purchases.",

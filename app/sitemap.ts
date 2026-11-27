@@ -4,7 +4,7 @@ import { site } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
-    ...["", "/recipes", "/projects", "/lifestyle", "/shop"].map((p) => ({ url: `${site.url}${p}` })),
+    ...["", "/recipes", "/projects", "/lifestyle", ...(site.shop ? ["/shop"] : [])].map((p) => ({ url: `${site.url}${p}` })),
     ...allSummaries().map((e) => ({ url: `${site.url}${e.href}`, lastModified: e.date })),
   ];
 }

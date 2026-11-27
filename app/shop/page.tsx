@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Disclosure } from "@/components/Disclosure";
 import { OutboundLink } from "@/components/OutboundLink";
 import { ProductCard } from "@/components/ProductCard";
@@ -12,6 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function ShopPage() {
+  if (!site.shop) notFound();
   return (
     <div className="pt-10">
       <div className="text-center">
