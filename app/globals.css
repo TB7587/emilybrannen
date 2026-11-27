@@ -74,4 +74,6 @@ h1, h2, h3 {
   .hero-print { max-height: 2.6in; }
   .hero-print img { object-fit: cover; }
   li { break-inside: avoid; }
+  .recipe-card { border: 0 !important; margin-top: 0 !important; }
+  .recipe-card > * { padding-left: 0 !important; padding-right: 0 !important; }
 }

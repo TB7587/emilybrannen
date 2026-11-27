@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { ChecklistCard, Facts, JsonLd, JumpButton, PostFooter, PostHeader, StepList, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
-import { PrintButton } from "@/components/PrintButton";
+import { Facts, JsonLd, JumpButton, PostFooter, PostHeader, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
+import { RecipeCard } from "@/components/RecipeCard";
 import { getAllRecipes, getRecipe } from "@/lib/content";
 import { formatMinutes, isoDuration } from "@/lib/format";
 import { site } from "@/lib/site";
@@ -66,20 +66,18 @@ export default async function RecipePage({ params }: Params) {
     ...(recipe.servings != null ? [{ label: "Serves", value: String(recipe.servings) }] : []),
   ];
 
-  const missing = !hasIngredients
-    ? "The full recipe isn't written up here yet. For now, the video has it."
-    : !hasSteps
-      ? "The step-by-step is in the video."
-      : undefined;
+  const missing = "The full recipe isn't written up here yet. For now, the video has it.";
 
   return (
     <article className="mx-auto max-w-2xl pt-8">
       {jsonLd && <JsonLd data={jsonLd} />}
 
-      {/* 1. Title, hero photo, times */}
-      <PostHeader eyebrow={recipe.category} title={recipe.title} image={recipe.heroImage}>
-        <Facts facts={facts} />
-      </PostHeader>
+      {/* 1. Title, hero photo, times. When there's a recipe card, only the card prints. */}
+      <div className={hasIngredients ? "no-print" : undefined}>
+        <PostHeader eyebrow={recipe.category} title={recipe.title} image={recipe.heroImage}>
+          <Facts facts={facts} />
+        </PostHeader>
+      </div>
 
       {/* 2. Jump to recipe */}
       {hasIngredients && <JumpButton href="#recipe">Jump to recipe</JumpButton>}
@@ -90,28 +88,18 @@ export default async function RecipePage({ params }: Params) {
         </div>
       )}
 
-      {/* 3. Ingredients checklist */}
-      {hasIngredients && (
-        <ChecklistCard
-          id="recipe"
-          heading={recipe.ingredientsHeading ? `Ingredients: ${recipe.ingredientsHeading}` : "Ingredients"}
-          storageKey={`ingredients:${recipe.slug}`}
-          items={recipe.ingredients}
-        />
+      {/* 3. The recipe card: ingredients checklist, steps, print */}
+      {hasIngredients ? (
+        <RecipeCard recipe={recipe} />
+      ) : (
+        <WatchOnInstagram href={recipe.instagram} title={recipe.title} placement="recipe:watch" missing={missing} />
       )}
 
       {/* 4. What I used */}
       <WhatIUsed products={recipe.products} placement="recipe:what-i-used" />
 
-      {/* 5. Numbered steps */}
-      <StepList steps={recipe.steps} />
-
-      <WatchOnInstagram href={recipe.instagram} title={recipe.title} placement="recipe:watch" missing={missing} />
-
-      {/* 6. Follow, 7. Email signup, 8. Print */}
-      <PostFooter followHeading="Follow for tomorrow's recipe" signupHeading="Get my recipes each week" placement="recipe">
-        {hasIngredients && <PrintButton />}
-      </PostFooter>
+      {/* 5. Follow, 6. Email signup */}
+      <PostFooter followHeading="Follow for tomorrow's recipe" signupHeading="Get my recipes each week" placement="recipe" />
     </article>
   );
 }
