@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { JsonLd, PostFooter, PostHeader, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
+import { JsonLd, PostFooter, PostHeader, PostNote, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
 import { formatDate, getAllPosts, getPost } from "@/lib/content";
 import { site } from "@/lib/site";
 
@@ -54,6 +54,8 @@ export default async function LifestylePostPage({ params }: Params) {
       <div className="prose-intro mt-7 text-[1.1rem]">
         <MDXRemote source={post.body} />
       </div>
+
+      <PostNote note={post.note} />
 
       <WatchOnInstagram href={post.instagram} title={post.title} placement="lifestyle:watch" />
 

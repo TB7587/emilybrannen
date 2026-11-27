@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { Facts, JsonLd, JumpButton, PostFooter, PostHeader, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
+import { Facts, JsonLd, JumpButton, PostFooter, PostHeader, PostNote, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
 import { RecipeCard } from "@/components/RecipeCard";
 import { getAllRecipes, getRecipe } from "@/lib/content";
 import { formatMinutes, isoDuration } from "@/lib/format";
@@ -87,6 +87,8 @@ export default async function RecipePage({ params }: Params) {
           <MDXRemote source={recipe.body} />
         </div>
       )}
+
+      <PostNote note={recipe.note} />
 
       {/* 3. The recipe card: ingredients checklist, steps, print */}
       {hasIngredients ? (

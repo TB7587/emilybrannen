@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { ChecklistCard, Facts, JsonLd, JumpButton, PostFooter, PostHeader, StepList, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
+import { ChecklistCard, Facts, JsonLd, JumpButton, PostFooter, PostHeader, PostNote, StepList, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
 import { PrintButton } from "@/components/PrintButton";
 import { getAllProjects, getProject } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -77,6 +77,8 @@ export default async function ProjectPage({ params }: Params) {
           <MDXRemote source={project.body} />
         </div>
       )}
+
+      <PostNote note={project.note} />
 
       {hasMaterials && (
         <ChecklistCard id="project" heading="All you need" storageKey={`materials:${project.slug}`} items={project.materials} />

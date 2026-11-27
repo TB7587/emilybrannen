@@ -81,6 +81,20 @@ export function WhatIUsed({ products, placement, heading = "What I used" }: { pr
   );
 }
 
+/** A short boxed note under the post text. Links to the full disclaimer. */
+export function PostNote({ note }: { note?: string }) {
+  if (!note) return null;
+  return (
+    <aside className="mt-7 border-l-2 border-barn bg-oat px-5 py-4 text-[0.95rem] leading-relaxed">
+      <p className="eyebrow">A quick note</p>
+      <p className="mt-1.5">
+        {note}{" "}
+        <a href="/disclaimer" className="text-barn underline underline-offset-4">Read the full disclaimer.</a>
+      </p>
+    </aside>
+  );
+}
+
 /** Links to the original Instagram post. `missing` adds a note that the write-up isn't on the site yet. */
 export function WatchOnInstagram({ href, title, placement, missing }: { href?: string; title: string; placement: string; missing?: string }) {
   if (!href) return null;

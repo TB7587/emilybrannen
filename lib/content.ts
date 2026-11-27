@@ -20,6 +20,8 @@ type Base = {
   description?: string;
   /** Link to the Instagram post or reel this came from. Adds a "Watch on Instagram" button. */
   instagram?: string;
+  /** A short note shown in a box under the post text, e.g. a health or safety reminder. */
+  note?: string;
   products: Product[];
   /** MDX body. Recipes and projects: short intro. Lifestyle: the whole post. */
   body: string;

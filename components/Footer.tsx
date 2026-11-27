@@ -45,6 +45,9 @@ export function Footer() {
         <p className={`${site.shop ? "mt-2" : "mt-5"} text-sm text-ink-soft`}>
           © {new Date().getFullYear()} {site.name}
         </p>
+        <Link href="/disclaimer" className="inline-flex h-12 items-center px-3 text-sm text-ink-soft underline underline-offset-4">
+          Disclaimer
+        </Link>
       </div>
     </footer>
   );

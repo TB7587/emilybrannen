@@ -102,6 +102,7 @@ Only `title`, `slug`, `date`, `category`, `heroImage` and `keyword` are required
 
 - `instagram: https://www.instagram.com/emily.brannen/reel/XXXX/` adds a "Watch the video on Instagram" button.
 - A recipe with no `ingredients` yet shows "The full recipe isn't written up here yet" above that button.
+- `note: "..."` adds a small boxed note under the post text with a link to the disclaimer page (used for health or safety reminders).
 - `ingredientsHeading: Alfredo sauce` labels a list that covers only part of the dish.
 - No photo yet? Run `node scripts/make-placeholders.mjs` to make a simple title card at the `heroImage` path. It never overwrites a real photo.
 
@@ -134,6 +135,7 @@ Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted
 | Site name, headline, intro, social links, Amazon storefront, disclosure | `lib/site.ts` |
 | Colors and fonts | top of `app/globals.css`, fonts in `app/layout.tsx` |
 | Shop page products | `lib/shop.ts` |
+| Disclaimer page wording | `app/disclaimer/page.tsx` |
 | Photos | `public/images/` (replace a file, keep its name) |
 | Logo, browser icon, share image | replace `scripts/logo-source.webp`, run `node scripts/make-brand.mjs` |
 | Email provider hookup (TODO) | `app/api/subscribe/route.ts` |
