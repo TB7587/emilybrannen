@@ -38,7 +38,7 @@ ingredients:
 steps:
   - Brown the beef in a large pot.
   - Stir in everything else and simmer 20 minutes.
-products:                         # 2 to 4 items for the "What I used" block
+products:                         # optional, up to 4 items for the "What I used" block
   - name: Enameled Dutch Oven
     image: /images/products/dutch-oven.jpg
     note: One short reason you love it.
@@ -98,6 +98,13 @@ The whole post is written here. Use `## Heading` for section titles, `-` for
 bullet lists, `>` for a pull quote, and **bold** or [links](https://example.com).
 ```
 
+Only `title`, `slug`, `date`, `category`, `heroImage` and `keyword` are required. Everything else is optional and the page just leaves out what isn't there, so a post can go up with a caption and a video link and be filled in later:
+
+- `instagram: https://www.instagram.com/emily.brannen/reel/XXXX/` adds a "Watch the video on Instagram" button.
+- A recipe with no `ingredients` yet shows "The full recipe isn't written up here yet" above that button.
+- `ingredientsHeading: Alfredo sauce` labels a list that covers only part of the dish.
+- No photo yet? Run `node scripts/make-placeholders.mjs` to make a simple title card at the `heroImage` path. It never overwrites a real photo.
+
 Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted butter"`). If a required field is missing the build fails with a message naming the file and field, so a broken page can't go live.
 
 ## Where things live
@@ -114,7 +121,7 @@ Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted
 
 ## Placeholders to replace before launch
 
-- Every post in `content/` is sample content (marked `TODO: PLACEHOLDER` at the top of the file, except the chicken and banana bread recipes, which are also samples).
+- Posts in `content/` come from her Instagram captions. Most still need the full recipe or steps, and all of them need a real photo in place of the title card.
 - All photos in `public/images/` (regenerate the placeholders with `node scripts/make-placeholders.mjs`).
 - Every `amazon.com/dp/PLACEHOLDER…?tag=yourtag-20` URL, the storefront URL and the social links.
 

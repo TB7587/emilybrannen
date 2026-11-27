@@ -2,7 +2,9 @@
 // Run: node scripts/make-placeholders.mjs
 // Replace any generated file with a real photo of the same name and you're done.
 import sharp from "sharp";
-import { mkdir } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { mkdir, readdir, readFile } from "node:fs/promises";
+import matter from "gray-matter";
 import path from "node:path";
 
 const out = path.join(process.cwd(), "public", "images");
@@ -27,17 +29,6 @@ function svg({ w, h, from, to, accent, label, sub = "placeholder photo" }) {
 }
 
 const images = [
-  // Recipe heroes, 4:3
-  ["recipes/honey-butter-skillet-corn.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#e2d5bf", accent: "#d9b56a", label: "Honey Butter Skillet Corn" }],
-  ["recipes/lemon-garlic-chicken-potatoes.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#dccbb6", accent: "#b9825a", label: "Lemon Garlic Chicken & Potatoes" }],
-  ["recipes/brown-sugar-banana-bread.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#d6c4ad", accent: "#8f6a4a", label: "Brown Sugar Banana Bread" }],
-  // Project heroes, 4:3
-  ["projects/cedar-raised-garden-bed.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#d9d3bf", accent: "#8e9a78", label: "Cedar Raised Garden Bed" }],
-  ["projects/board-and-batten-entry-wall.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#d8d2c8", accent: "#a9a59c", label: "Board and Batten Entry Wall" }],
-  // Lifestyle heroes, 4:3
-  ["lifestyle/slow-sunday-morning.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#e0d3c2", accent: "#c7a98a", label: "Our Slow Sunday Morning" }],
-  ["lifestyle/simple-farmhouse-table.jpg", { w: 1600, h: 1200, from: "#f2ede4", to: "#dcd3c4", accent: "#b5a48c", label: "A Simple Farmhouse Table" }],
-  // Portrait
   ["author.jpg", { w: 800, h: 800, from: "#f2ede4", to: "#ddd4c6", accent: "#cdbfae", label: "Your photo here", sub: "800 x 800" }],
   // Products, square
   ...[
@@ -62,6 +53,45 @@ const images = [
     { w: 800, h: 800, from: "#faf7f2", to: "#ece4d7", accent, label, sub: "product photo" },
   ]),
 ];
+
+// A simple title card for every post that doesn't have its photo yet.
+// Real photos are never overwritten: drop one in with the same file name and it's used.
+function wrap(title, max = 20) {
+  const lines = [""];
+  for (const word of title.split(" ")) {
+    if ((lines.at(-1) + " " + word).trim().length > max) lines.push(word);
+    else lines[lines.length - 1] = (lines.at(-1) + " " + word).trim();
+  }
+  return lines;
+}
+function titleCard(title) {
+  const lines = wrap(title);
+  const size = lines.length > 3 ? 104 : 124;
+  const startY = 600 - ((lines.length - 1) * size * 1.12) / 2;
+  const text = lines.map((l, i) => `<text x="800" y="${startY + i * size * 1.12}" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="${size}" fill="#2a2623">${esc(l)}</text>`).join("");
+  const ruleY = startY + (lines.length - 1) * size * 1.12 + 120;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+  <rect width="1600" height="1200" fill="#f2ede4"/>
+  <rect x="44" y="44" width="1512" height="1112" fill="none" stroke="#2a2623" stroke-opacity="0.45" stroke-width="2"/>
+  <rect x="60" y="60" width="1480" height="1080" fill="none" stroke="#2a2623" stroke-opacity="0.2" stroke-width="2"/>
+  ${text}
+  <g stroke="#2a2623" stroke-opacity="0.6" stroke-width="2.5" fill="none">
+    <line x1="560" y1="${ruleY}" x2="760" y2="${ruleY}"/><line x1="840" y1="${ruleY}" x2="1040" y2="${ruleY}"/>
+    <path transform="translate(778 ${ruleY - 20}) scale(1.85)" d="M12 20.5S2.5 14.6 2.5 7.8A4.8 4.8 0 0112 5.6a4.8 4.8 0 019.5 2.2c0 6.800-9.500 12.700-9.500 12.700z"/>
+  </g>
+</svg>`;
+}
+for (const section of ["recipes", "projects", "lifestyle"]) {
+  const dir = path.join(process.cwd(), "content", section);
+  for (const file of (await readdir(dir)).filter((f) => f.endsWith(".mdx"))) {
+    const { data } = matter(await readFile(path.join(dir, file), "utf8"));
+    const dest = path.join(process.cwd(), "public", data.heroImage);
+    if (existsSync(dest)) continue;
+    await mkdir(path.dirname(dest), { recursive: true });
+    await sharp(Buffer.from(titleCard(data.title))).jpeg({ quality: 84, mozjpeg: true }).toFile(dest);
+    console.log("wrote title card", data.heroImage);
+  }
+}
 
 for (const [file, opts] of images) {
   const dest = path.join(out, file);

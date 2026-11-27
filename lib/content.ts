@@ -18,22 +18,27 @@ type Base = {
   heroImage: string;
   keyword: string;
   description?: string;
+  /** Link to the Instagram post or reel this came from. Adds a "Watch on Instagram" button. */
+  instagram?: string;
   products: Product[];
   /** MDX body. Recipes and projects: short intro. Lifestyle: the whole post. */
   body: string;
 };
 
 export type Recipe = Base & {
-  prepTime: number; // minutes
-  cookTime: number; // minutes
-  servings: number;
+  // Everything below is optional, so a recipe can go up with just a caption and video link
+  // and be filled in later. The page only shows the parts that are there.
+  prepTime?: number; // minutes
+  cookTime?: number; // minutes
+  servings?: number;
+  ingredientsHeading?: string; // e.g. "Alfredo sauce" when the list is for one part of the dish
   ingredients: string[];
   steps: string[];
 };
 
 export type Project = Base & {
-  time: string; // e.g. "One afternoon"
-  difficulty: string; // e.g. "Beginner"
+  time?: string; // e.g. "One afternoon"
+  difficulty?: string; // e.g. "Beginner"
   cost?: string; // e.g. "About $60"
   materials: string[];
   steps: string[];
@@ -42,18 +47,13 @@ export type Project = Base & {
 export type Post = Base;
 
 export const sections = {
-  recipes: { label: "Recipes", singular: "Recipe", blurb: "Simple, cozy food my family asks for again and again." },
-  projects: { label: "Projects", singular: "Project", blurb: "DIY, garden and home projects you can actually finish." },
-  lifestyle: { label: "Lifestyle", singular: "Lifestyle", blurb: "Home, family and the little routines that make our days." },
+  recipes: { label: "Recipes", singular: "Recipe", blurb: "Family favorites, holiday sides, treats and drinks." },
+  projects: { label: "Projects", singular: "Project", blurb: "Holiday crafts, DIY decor and things to make with kids." },
+  lifestyle: { label: "Lifestyle", singular: "Lifestyle", blurb: "Toddler homeschool, travel and everyday family life." },
 } as const;
 export type Section = keyof typeof sections;
 
 const COMMON = ["title", "slug", "date", "category", "heroImage", "keyword"];
-const REQUIRED: Record<Section, string[]> = {
-  recipes: [...COMMON, "prepTime", "cookTime", "servings", "ingredients", "steps", "products"],
-  projects: [...COMMON, "time", "difficulty", "materials", "steps"],
-  lifestyle: COMMON,
-};
 
 function load<T extends Base>(section: Section): T[] {
   const dir = path.join(process.cwd(), "content", section);
@@ -65,22 +65,23 @@ function load<T extends Base>(section: Section): T[] {
       const where = `content/${section}/${file}`;
       const { data, content } = matter(fs.readFileSync(path.join(dir, file), "utf8"));
       // Fail loudly at build time so a typo in frontmatter never ships a broken page.
-      for (const key of REQUIRED[section]) {
+      for (const key of COMMON) {
         if (data[key] === undefined || data[key] === null) {
           throw new Error(`${where} is missing "${key}" in its frontmatter`);
         }
       }
       const products: Product[] = data.products ?? [];
-      if (products.length > 4 || (section === "recipes" && products.length < 2)) {
-        throw new Error(`${where}: "products" needs ${section === "recipes" ? "2 to 4" : "at most 4"} items`);
-      }
+      if (products.length > 4) throw new Error(`${where}: "products" can have at most 4 items`);
       return {
         ...data,
         products,
+        ingredients: data.ingredients ?? [],
+        materials: data.materials ?? [],
+        steps: data.steps ?? [],
         // YAML turns unquoted dates into Date objects; normalize to a string.
         date: data.date instanceof Date ? data.date.toISOString().slice(0, 10) : String(data.date),
         body: content.trim(),
-      } as T;
+      } as unknown as T;
     })
     .sort((a, b) => b.date.localeCompare(a.date)); // newest first
 }
@@ -113,9 +114,11 @@ function summarize(section: Section, e: Base, meta: string): EntrySummary {
 }
 
 export const recipeSummaries = () =>
-  getAllRecipes().map((r) => summarize("recipes", r, `Ready in ${formatMinutes(r.prepTime + r.cookTime)}`));
+  getAllRecipes().map((r) =>
+    summarize("recipes", r, r.prepTime != null && r.cookTime != null ? `Ready in ${formatMinutes(r.prepTime + r.cookTime)}` : formatDate(r.date)),
+  );
 export const projectSummaries = () =>
-  getAllProjects().map((p) => summarize("projects", p, `${p.time} · ${p.difficulty}`));
+  getAllProjects().map((p) => summarize("projects", p, [p.time, p.difficulty].filter(Boolean).join(" · ") || formatDate(p.date)));
 export const postSummaries = () => getAllPosts().map((p) => summarize("lifestyle", p, formatDate(p.date)));
 
 /** Everything, newest first. */

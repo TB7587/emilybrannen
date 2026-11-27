@@ -5,6 +5,8 @@ import { Checklist } from "./Checklist";
 import { Disclosure } from "./Disclosure";
 import { EmailSignup } from "./EmailSignup";
 import { FollowBlock } from "./FollowBlock";
+import { OutboundLink } from "./OutboundLink";
+import { InstagramIcon } from "./SocialIcons";
 import { ProductCard } from "./ProductCard";
 
 /** Escapes "<" so content can never close the script tag. */
@@ -26,6 +28,7 @@ export function PostHeader({ eyebrow, title, image, children }: { eyebrow: strin
 }
 
 export function Facts({ facts }: { facts: { label: string; value: string }[] }) {
+  if (!facts.length) return null;
   return (
     <dl className="mt-5 grid auto-cols-fr grid-flow-col divide-x divide-linen border-y border-ink/30 text-center">
       {facts.map((f) => (
@@ -76,7 +79,22 @@ export function WhatIUsed({ products, placement, heading = "What I used" }: { pr
   );
 }
 
+/** Links to the original Instagram post. `missing` adds a note that the write-up isn't on the site yet. */
+export function WatchOnInstagram({ href, title, placement, missing }: { href?: string; title: string; placement: string; missing?: string }) {
+  if (!href) return null;
+  return (
+    <div className="no-print mt-7 rounded-md border border-linen bg-oat px-5 py-6 text-center">
+      {missing && <p className="mx-auto mb-4 max-w-md text-ink-soft">{missing}</p>}
+      <OutboundLink href={href} label={`Watch: ${title}`} placement={placement} className="btn btn-primary w-full sm:w-auto">
+        <InstagramIcon />
+        Watch the video on Instagram
+      </OutboundLink>
+    </div>
+  );
+}
+
 export function StepList({ steps }: { steps: string[] }) {
+  if (!steps.length) return null;
   return (
     <section aria-labelledby="steps-heading" className="mt-10">
       <h2 id="steps-heading" className="text-[2rem]">Steps</h2>

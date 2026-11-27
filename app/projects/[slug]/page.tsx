@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import { ChecklistCard, Facts, JsonLd, JumpButton, PostFooter, PostHeader, StepList, WhatIUsed } from "@/components/PostParts";
+import { ChecklistCard, Facts, JsonLd, JumpButton, PostFooter, PostHeader, StepList, WatchOnInstagram, WhatIUsed } from "@/components/PostParts";
 import { PrintButton } from "@/components/PrintButton";
 import { getAllProjects, getProject } from "@/lib/content";
 import { site } from "@/lib/site";
@@ -30,36 +30,47 @@ export default async function ProjectPage({ params }: Params) {
   if (!project) notFound();
   const url = `${site.url}/projects/${project.slug}`;
 
-  // schema.org HowTo: the structured-data type for step-by-step projects.
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "HowTo",
-    name: project.title,
-    description: project.description,
-    image: [new URL(project.heroImage, site.url).toString()],
-    author: { "@type": "Person", name: site.authorName },
-    datePublished: project.date,
-    keywords: project.keyword,
-    supply: project.materials.map((name) => ({ "@type": "HowToSupply", name })),
-    step: project.steps.map((text, i) => ({ "@type": "HowToStep", position: i + 1, text, url: `${url}#step-${i + 1}` })),
-    mainEntityOfPage: url,
-  };
+  const hasMaterials = project.materials.length > 0;
+  const hasSteps = project.steps.length > 0;
+
+  // schema.org HowTo, only once the steps are written up.
+  const jsonLd = hasSteps
+    ? {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        name: project.title,
+        description: project.description,
+        image: [new URL(project.heroImage, site.url).toString()],
+        author: { "@type": "Person", name: site.authorName },
+        datePublished: project.date,
+        keywords: project.keyword,
+        supply: project.materials.map((name) => ({ "@type": "HowToSupply", name })),
+        step: project.steps.map((text, i) => ({ "@type": "HowToStep", position: i + 1, text, url: `${url}#step-${i + 1}` })),
+        mainEntityOfPage: url,
+      }
+    : null;
 
   const facts = [
-    { label: "Time", value: project.time },
-    { label: "Skill", value: project.difficulty },
+    ...(project.time ? [{ label: "Time", value: project.time }] : []),
+    ...(project.difficulty ? [{ label: "Skill", value: project.difficulty }] : []),
     ...(project.cost ? [{ label: "Cost", value: project.cost }] : []),
   ];
 
+  const missing = hasSteps
+    ? undefined
+    : hasMaterials
+      ? "The step-by-step is in the video."
+      : "The full how-to isn't written up here yet. For now, the video has it.";
+
   return (
     <article className="mx-auto max-w-2xl pt-8">
-      <JsonLd data={jsonLd} />
+      {jsonLd && <JsonLd data={jsonLd} />}
 
       <PostHeader eyebrow={project.category} title={project.title} image={project.heroImage}>
         <Facts facts={facts} />
       </PostHeader>
 
-      <JumpButton href="#project">Jump to project</JumpButton>
+      {hasMaterials && <JumpButton href="#project">Jump to project</JumpButton>}
 
       {project.body && (
         <div className="prose-intro no-print mt-7 text-[1.1rem]">
@@ -67,14 +78,18 @@ export default async function ProjectPage({ params }: Params) {
         </div>
       )}
 
-      <ChecklistCard id="project" heading="Materials" storageKey={`materials:${project.slug}`} items={project.materials} />
+      {hasMaterials && (
+        <ChecklistCard id="project" heading="All you need" storageKey={`materials:${project.slug}`} items={project.materials} />
+      )}
 
       <WhatIUsed products={project.products} placement="project:what-i-used" />
 
       <StepList steps={project.steps} />
 
+      <WatchOnInstagram href={project.instagram} title={project.title} placement="project:watch" missing={missing} />
+
       <PostFooter followHeading="Follow for the next project" placement="project">
-        <PrintButton label="Print this project" />
+        {hasMaterials && <PrintButton label="Print this project" />}
       </PostFooter>
     </article>
   );
