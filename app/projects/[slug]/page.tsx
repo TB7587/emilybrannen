@@ -88,7 +88,11 @@ export default async function ProjectPage({ params }: Params) {
 
       <WatchOnInstagram href={project.instagram} title={project.title} placement="project:watch" missing={missing} />
 
-      <PostFooter followHeading="Follow for the next project" placement="project">
+      <PostFooter
+        followHeading="Follow for the next project"
+        placement="project"
+        share={{ path: `/projects/${project.slug}`, title: project.title, image: project.heroImage }}
+      >
         {hasMaterials && <PrintButton label="Print this project" />}
       </PostFooter>
     </article>

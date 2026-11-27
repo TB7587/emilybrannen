@@ -8,6 +8,8 @@ import { FollowBlock } from "./FollowBlock";
 import { OutboundLink } from "./OutboundLink";
 import { InstagramIcon } from "./SocialIcons";
 import { ProductCard } from "./ProductCard";
+import { ShareBlock } from "./Share";
+import { site } from "@/lib/site";
 
 /** Escapes "<" so content can never close the script tag. */
 export function JsonLd({ data }: { data: object }) {
@@ -115,9 +117,12 @@ export function StepList({ steps }: { steps: string[] }) {
   );
 }
 
-export function PostFooter({ followHeading, signupHeading, placement, children }: { followHeading: string; signupHeading?: string; placement: string; children?: React.ReactNode }) {
+type Shareable = { path: string; title: string; image: string };
+
+export function PostFooter({ followHeading, signupHeading, placement, share, children }: { followHeading: string; signupHeading?: string; placement: string; share: Shareable; children?: React.ReactNode }) {
   return (
     <div className="mt-12 space-y-6">
+      <ShareBlock path={share.path} title={share.title} image={new URL(share.image, site.url).toString()} siteUrl={site.url} kind={placement} />
       <FollowBlock heading={followHeading} placement={`${placement}:follow`} />
       <EmailSignup placement={placement} heading={signupHeading} />
       {children}

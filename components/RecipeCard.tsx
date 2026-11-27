@@ -6,6 +6,7 @@ import { Checklist } from "./Checklist";
 import { MethodGrid } from "./MethodGrid";
 import { OutboundLink } from "./OutboundLink";
 import { PrintButton } from "./PrintButton";
+import { ShareButton } from "./Share";
 import { InstagramIcon } from "./SocialIcons";
 
 /**
@@ -52,15 +53,21 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
       )}
 
       {/* Actions */}
-      <div className="no-print grid grid-cols-2 gap-2 border-b border-linen px-5 py-4">
+      <div className="card-actions no-print grid auto-cols-fr grid-flow-col gap-2 border-b border-linen px-4 py-4">
         <PrintButton label="Print" />
-        {recipe.instagram ? (
-          <OutboundLink href={recipe.instagram} label={`Watch: ${recipe.title}`} placement="recipe:card-watch" className="btn btn-outline px-3">
+        <ShareButton
+          path={`/recipes/${recipe.slug}`}
+          title={recipe.title}
+          image={new URL(recipe.heroImage, site.url).toString()}
+          siteUrl={site.url}
+          kind="recipe"
+          className="btn btn-outline"
+        />
+        {recipe.instagram && (
+          <OutboundLink href={recipe.instagram} label={`Watch: ${recipe.title}`} placement="recipe:card-watch" className="btn btn-outline">
             <InstagramIcon />
             Video
           </OutboundLink>
-        ) : (
-          <span />
         )}
       </div>
 

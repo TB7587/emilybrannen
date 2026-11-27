@@ -99,7 +99,12 @@ export default async function RecipePage({ params }: Params) {
       <WhatIUsed products={recipe.products} placement="recipe:what-i-used" />
 
       {/* 5. Follow, 6. Email signup */}
-      <PostFooter followHeading="Follow for tomorrow's recipe" signupHeading="Get my recipes each week" placement="recipe" />
+      <PostFooter
+        followHeading="Follow for tomorrow's recipe"
+        signupHeading="Get my recipes each week"
+        placement="recipe"
+        share={{ path: `/recipes/${recipe.slug}`, title: recipe.title, image: recipe.heroImage }}
+      />
     </article>
   );
 }

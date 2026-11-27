@@ -50,6 +50,8 @@ h1, h2, h3 {
   }
   .btn-primary { @apply bg-ink text-cream hover:bg-barn hover:border-barn; }
   .btn-outline { @apply bg-transparent text-ink hover:bg-ink hover:text-cream; }
+  /* Three buttons side by side in the recipe card: stack icon over label so they fit a phone. */
+  .card-actions .btn { @apply w-full flex-col gap-1 px-1 py-2.5 text-[0.7rem] tracking-[0.14em]; }
   .eyebrow { @apply text-[0.72rem] font-medium uppercase tracking-[0.24em] text-barn; }
   .prose-intro p { @apply mb-4; }
   .prose-intro a { @apply text-barn underline underline-offset-4; }

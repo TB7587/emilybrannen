@@ -59,7 +59,11 @@ export default async function LifestylePostPage({ params }: Params) {
 
       <WhatIUsed products={post.products} placement="lifestyle:shop-this-post" heading="Shop this post" />
 
-      <PostFooter followHeading="Follow along" placement="lifestyle" />
+      <PostFooter
+        followHeading="Follow along"
+        placement="post"
+        share={{ path: `/lifestyle/${post.slug}`, title: post.title, image: post.heroImage }}
+      />
     </article>
   );
 }
