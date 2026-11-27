@@ -10,12 +10,12 @@ const socials = [
 
 export function FollowBlock() {
   return (
-    <section className="no-print rounded-3xl border-2 border-dashed border-butter bg-butter/20 px-6 py-8 text-center">
-      <h2 className="text-[1.7rem] font-semibold">Follow for tomorrow's recipe</h2>
-      <p className="mt-2 text-cocoa-soft">I post something new every day. Come cook along!</p>
+    <section className="no-print border-y border-ink/30 px-2 py-10 text-center">
+      <h2 className="text-[2rem]">Follow for tomorrow's recipe</h2>
+      <p className="mt-2 text-ink-soft">I post something new every day. Come cook along!</p>
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:justify-center">
         {socials.map(({ name, href, Icon }) => (
-          <OutboundLink key={name} href={href} label={name} placement="recipe:follow" className="btn btn-outline bg-cream">
+          <OutboundLink key={name} href={href} label={name} placement="recipe:follow" className="btn btn-outline">
             <Icon />
             {name}
           </OutboundLink>

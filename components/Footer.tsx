@@ -1,5 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 import { site } from "@/lib/site";
+import logo from "@/public/brand/logo.png";
 import { Disclosure } from "./Disclosure";
 import { OutboundLink } from "./OutboundLink";
 import { FacebookIcon, InstagramIcon, TikTokIcon } from "./SocialIcons";
@@ -13,18 +15,18 @@ const socials = [
 export function Footer() {
   return (
     <footer className="no-print mt-20 border-t border-linen bg-oat">
-      <div className="mx-auto max-w-5xl px-5 py-10 text-center">
-        <p className="font-display text-2xl font-semibold">{site.name}</p>
-        <p className="mt-1 text-cocoa-soft">{site.tagline}</p>
+      <div className="mx-auto max-w-5xl px-5 py-12 text-center">
+        <Image src={logo} alt={site.name} sizes="240px" className="mx-auto h-auto w-60" />
+        <p className="mt-4 font-display text-xl italic text-ink-soft">{site.tagline}</p>
 
-        <div className="mt-5 flex justify-center gap-3">
+        <div className="mt-6 flex justify-center gap-3">
           {socials.map(({ name, href, Icon }) => (
             <OutboundLink
               key={name}
               href={href}
               label={name}
               placement="footer:social"
-              className="flex size-12 items-center justify-center rounded-full bg-cream text-cocoa"
+              className="flex size-12 items-center justify-center rounded-full border border-ink/40 text-ink"
             >
               <Icon />
               <span className="sr-only">{name}</span>
@@ -32,13 +34,13 @@ export function Footer() {
           ))}
         </div>
 
-        <nav aria-label="Footer" className="mt-5 flex justify-center gap-2 font-extrabold">
-          <Link href="/" className="flex h-12 items-center px-3 underline">Recipes</Link>
-          <Link href="/shop" className="flex h-12 items-center px-3 underline">Shop my kitchen</Link>
+        <nav aria-label="Footer" className="mt-5 flex justify-center gap-2 text-[0.74rem] font-medium uppercase tracking-[0.18em]">
+          <Link href="/" className="flex h-12 items-center px-3">Recipes</Link>
+          <Link href="/shop" className="flex h-12 items-center px-3">Shop my kitchen</Link>
         </nav>
 
         <Disclosure className="mt-5" />
-        <p className="mt-2 text-sm text-cocoa-soft">
+        <p className="mt-2 text-sm text-ink-soft">
           © {new Date().getFullYear()} {site.name}
         </p>
       </div>

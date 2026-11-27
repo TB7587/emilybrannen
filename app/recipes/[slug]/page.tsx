@@ -75,11 +75,11 @@ export default async function RecipePage({ params }: Params) {
       />
 
       {/* 1. Title, hero photo, times */}
-      <header>
+      <header className="text-center">
         <p className="eyebrow">{recipe.category}</p>
-        <h1 className="mt-2 text-[2.2rem] font-semibold sm:text-5xl">{recipe.title}</h1>
+        <h1 className="mt-3 text-[2.5rem] sm:text-6xl">{recipe.title}</h1>
 
-        <div className="hero-print relative -mx-5 mt-5 aspect-[4/3] overflow-hidden bg-oat sm:mx-0 sm:rounded-3xl">
+        <div className="hero-print relative -mx-5 mt-6 aspect-[4/3] overflow-hidden bg-oat sm:mx-0 sm:rounded-md">
           <Image
             src={recipe.heroImage}
             alt={recipe.title}
@@ -90,11 +90,11 @@ export default async function RecipePage({ params }: Params) {
           />
         </div>
 
-        <dl className="mt-5 grid grid-cols-3 divide-x divide-linen rounded-2xl border border-linen bg-white text-center">
+        <dl className="mt-5 grid grid-cols-3 divide-x divide-linen border-y border-ink/30 text-center">
           {facts.map((f) => (
             <div key={f.label} className="px-2 py-3.5">
-              <dt className="text-xs font-extrabold uppercase tracking-[0.14em] text-sage">{f.label}</dt>
-              <dd className="mt-0.5 font-display text-xl font-semibold">{f.value}</dd>
+              <dt className="eyebrow">{f.label}</dt>
+              <dd className="mt-1 font-display text-2xl">{f.value}</dd>
             </div>
           ))}
         </dl>
@@ -115,9 +115,9 @@ export default async function RecipePage({ params }: Params) {
       )}
 
       {/* 3. Ingredients checklist */}
-      <section id="recipe" aria-labelledby="ingredients-heading" className="print-plain mt-8 rounded-3xl border border-linen bg-white px-5 py-6">
-        <h2 id="ingredients-heading" className="text-[1.7rem] font-semibold">Ingredients</h2>
-        <p className="no-print mt-1 text-[0.95rem] text-cocoa-soft">Tap to check off as you go.</p>
+      <section id="recipe" aria-labelledby="ingredients-heading" className="print-plain mt-8 rounded-md border border-linen bg-white px-5 py-6">
+        <h2 id="ingredients-heading" className="text-[2rem]">Ingredients</h2>
+        <p className="no-print mt-1 text-[0.95rem] text-ink-soft">Tap to check off as you go.</p>
         <div className="mt-3">
           <IngredientChecklist slug={recipe.slug} ingredients={recipe.ingredients} />
         </div>
@@ -125,7 +125,7 @@ export default async function RecipePage({ params }: Params) {
 
       {/* 4. What I used */}
       <section aria-labelledby="used-heading" className="no-print mt-10">
-        <h2 id="used-heading" className="text-[1.7rem] font-semibold">What I used</h2>
+        <h2 id="used-heading" className="text-[2rem]">What I used</h2>
         <Disclosure className="mt-1" />
         <div className="mt-4 grid gap-3">
           {recipe.products.map((p) => (
@@ -136,13 +136,13 @@ export default async function RecipePage({ params }: Params) {
 
       {/* 5. Numbered steps */}
       <section aria-labelledby="steps-heading" className="mt-10">
-        <h2 id="steps-heading" className="text-[1.7rem] font-semibold">Steps</h2>
+        <h2 id="steps-heading" className="text-[2rem]">Steps</h2>
         <ol className="mt-5 space-y-6">
           {recipe.steps.map((step, i) => (
             <li key={i} id={`step-${i + 1}`} className="flex gap-4">
               <span
                 aria-hidden
-                className="flex size-10 shrink-0 items-center justify-center rounded-full bg-butter font-display text-lg font-semibold"
+                className="flex size-10 shrink-0 items-center justify-center rounded-full border border-ink font-display text-xl"
               >
                 {i + 1}
               </span>

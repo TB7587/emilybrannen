@@ -58,6 +58,7 @@ Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted
 | Colors and fonts | top of `app/globals.css`, fonts in `app/layout.tsx` |
 | Shop page products | `lib/shop.ts` |
 | Photos | `public/images/` (replace a file, keep its name) |
+| Logo, browser icon, share image | replace `scripts/logo-source.webp`, run `node scripts/make-brand.mjs` |
 | Email provider hookup (TODO) | `app/api/subscribe/route.ts` |
 | Click tracking | `lib/track.ts`, `app/api/track/route.ts` |
 

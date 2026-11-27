@@ -13,14 +13,16 @@ export const metadata: Metadata = {
 
 export default function ShopPage() {
   return (
-    <div className="pt-8">
+    <div className="pt-10">
+      <div className="text-center">
       <p className="eyebrow">My favorites</p>
-      <h1 className="mt-2 text-[2.2rem] font-semibold sm:text-5xl">Shop my kitchen</h1>
-      <p className="mt-3 max-w-xl text-cocoa-soft">
+      <h1 className="mt-3 text-[2.5rem] sm:text-6xl">Shop my kitchen</h1>
+      <p className="mx-auto mt-3 max-w-xl text-ink-soft">
         These are the things I reach for every single day. If it's on this page, it has earned its spot in my kitchen.
       </p>
+      </div>
 
-      <div className="mt-6 rounded-3xl bg-oat px-5 py-6">
+      <div className="mt-7 rounded-md border border-linen bg-oat px-5 py-7 text-center">
         <OutboundLink
           href={site.amazonStorefront}
           label="Amazon storefront"
@@ -35,8 +37,8 @@ export default function ShopPage() {
 
       {shopCategories.map((cat) => (
         <section key={cat.name} className="mt-12" aria-labelledby={`cat-${cat.name}`}>
-          <h2 id={`cat-${cat.name}`} className="text-[1.7rem] font-semibold">{cat.name}</h2>
-          <p className="mt-1 text-cocoa-soft">{cat.blurb}</p>
+          <h2 id={`cat-${cat.name}`} className="text-[2rem]">{cat.name}</h2>
+          <p className="mt-1 text-ink-soft">{cat.blurb}</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2">
             {cat.products.map((p) => (
               <ProductCard key={p.name} product={p} placement={`shop:${cat.name}`} />
@@ -46,7 +48,7 @@ export default function ShopPage() {
       ))}
 
       <div className="mt-12 text-center">
-        <p className="font-display text-2xl font-semibold">Looking for something else?</p>
+        <p className="font-display text-[1.7rem]">Looking for something else?</p>
         <OutboundLink
           href={site.amazonStorefront}
           label="Amazon storefront"

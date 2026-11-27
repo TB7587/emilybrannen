@@ -1,19 +1,18 @@
 @import "tailwindcss";
 
-/* Warm family-kitchen palette. Change these three and the whole site follows. */
+/* Family · Farmstyle · Classy · Minimal · Warm
+   Ink line-art on warm paper, like the logo. One quiet barn-red accent. */
 @theme {
-  --color-cream: #fbf5ec;       /* page background */
-  --color-oat: #f3e8d8;         /* soft panels */
-  --color-linen: #e6d6c0;       /* borders */
-  --color-terracotta: #b84a26;  /* primary buttons, links */
-  --color-terracotta-dark: #963a1c;
-  --color-butter: #f0bf4c;      /* highlights */
-  --color-sage: #5f7355;        /* secondary accent */
-  --color-cocoa: #33241b;       /* text */
-  --color-cocoa-soft: #6a574a;  /* secondary text */
+  --color-cream: #faf7f2;     /* page background: warm paper */
+  --color-oat: #f2ede4;       /* soft panels */
+  --color-linen: #ddd4c6;     /* hairlines and borders */
+  --color-ink: #2a2623;       /* text, buttons, line work */
+  --color-ink-soft: #6a625a;  /* secondary text */
+  --color-barn: #8a3b2c;      /* accent: small labels, links, the heart */
+  --color-wheat: #c9a66b;     /* rare highlight */
 
-  --font-display: var(--font-fraunces), Georgia, serif;
-  --font-sans: var(--font-nunito), system-ui, sans-serif;
+  --font-display: var(--font-cormorant), Georgia, serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
 }
 
 html {
@@ -23,22 +22,22 @@ html {
 
 body {
   background: var(--color-cream);
-  color: var(--color-cocoa);
+  color: var(--color-ink);
   font-family: var(--font-sans);
   font-size: 1.0625rem; /* 17px: comfortable on a phone */
-  line-height: 1.65;
+  line-height: 1.7;
 }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  line-height: 1.15;
-  letter-spacing: -0.01em;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: 0;
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-sage);
+  outline: 2px solid var(--color-barn);
   outline-offset: 3px;
-  border-radius: 6px;
 }
 
 /* Section anchors shouldn't hide under the sticky header. */
@@ -47,14 +46,14 @@ h1, h2, h3 {
 @layer components {
   /* All buttons are at least 52px tall: easy thumb targets. */
   .btn {
-    @apply inline-flex min-h-13 items-center justify-center gap-2 rounded-full px-6 text-base font-extrabold transition-colors active:translate-y-px;
+    @apply inline-flex min-h-13 items-center justify-center gap-2.5 rounded-[3px] border border-ink px-6 text-center text-[0.8rem] font-medium uppercase tracking-[0.18em] transition-colors active:translate-y-px;
   }
-  .btn-primary { @apply bg-terracotta text-white hover:bg-terracotta-dark; }
-  .btn-outline { @apply border-2 border-cocoa bg-transparent text-cocoa hover:bg-cocoa hover:text-cream; }
-  .btn-butter { @apply bg-butter text-cocoa hover:brightness-95; }
-  .eyebrow { @apply text-xs font-extrabold uppercase tracking-[0.16em] text-sage; }
+  .btn-primary { @apply bg-ink text-cream hover:bg-barn hover:border-barn; }
+  .btn-outline { @apply bg-transparent text-ink hover:bg-ink hover:text-cream; }
+  .eyebrow { @apply text-[0.72rem] font-medium uppercase tracking-[0.24em] text-barn; }
   .prose-intro p { @apply mb-4; }
-  .prose-intro a { @apply font-bold text-terracotta underline; }
+  .prose-intro a { @apply text-barn underline underline-offset-4; }
+  .prose-intro strong { @apply font-medium; }
 }
 
 @media (prefers-reduced-motion: reduce) {

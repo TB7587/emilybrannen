@@ -34,9 +34,9 @@ export function IngredientChecklist({ slug, ingredients }: { slug: string; ingre
                 type="checkbox"
                 checked={on}
                 onChange={() => toggle(i)}
-                className="size-7 shrink-0 cursor-pointer appearance-none rounded-lg border-2 border-cocoa-soft bg-white bg-center bg-no-repeat checked:border-sage checked:bg-sage checked:bg-[url('data:image/svg+xml;utf8,<svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22white%22%20stroke-width=%223.5%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22><path%20d=%22M5%2012.5l4.5%204.5L19%207.500%22/></svg>')] checked:bg-[length:1.1rem] print:size-4 print:rounded-sm"
+                className="size-7 shrink-0 cursor-pointer appearance-none rounded-[3px] border border-ink bg-white bg-center bg-no-repeat checked:border-ink checked:bg-ink checked:bg-[url('data:image/svg+xml;utf8,<svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%2024%2024%22%20fill=%22none%22%20stroke=%22white%22%20stroke-width=%223.5%22%20stroke-linecap=%22round%22%20stroke-linejoin=%22round%22><path%20d=%22M5%2012.5l4.5%204.5L19%207.500%22/></svg>')] checked:bg-[length:1.1rem] print:size-4 print:rounded-sm"
               />
-              <span className={on ? "text-cocoa-soft line-through" : ""}>{item}</span>
+              <span className={on ? "text-ink-soft line-through" : ""}>{item}</span>
             </label>
           </li>
         );
