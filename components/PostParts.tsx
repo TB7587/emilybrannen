@@ -124,7 +124,7 @@ export function PostFooter({ followHeading, signupHeading, placement, share, chi
     <div className="mt-12 space-y-6">
       <ShareBlock path={share.path} title={share.title} image={new URL(share.image, site.url).toString()} siteUrl={site.url} kind={placement} />
       <FollowBlock heading={followHeading} placement={`${placement}:follow`} />
-      <EmailSignup placement={placement} heading={signupHeading} />
+      {site.newsletter && <EmailSignup placement={placement} heading={signupHeading} />}
       {children}
     </div>
   );

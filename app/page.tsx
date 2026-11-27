@@ -61,9 +61,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mt-16">
-        <EmailSignup placement="home" />
-      </div>
+      {site.newsletter && (
+        <div className="mt-16">
+          <EmailSignup placement="home" />
+        </div>
+      )}
     </>
   );
 }

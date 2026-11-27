@@ -147,6 +147,8 @@ Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted
 
 ## Email signup
 
+**Currently switched off.** The signup box is hidden everywhere while `newsletter` is `false` in `lib/site.ts`. Set it to `true` to bring it back.
+
 Both forms post to `/api/subscribe`, which validates the address and **only logs it** (`[subscribe] …`). Nothing is stored until a provider is connected; see the TODO in that file.
 
 ## Click tracking

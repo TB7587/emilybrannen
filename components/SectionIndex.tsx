@@ -1,4 +1,5 @@
 import { EmailSignup } from "./EmailSignup";
+import { site } from "@/lib/site";
 import { EntryGrid } from "./EntryGrid";
 import { type EntrySummary, type Section, sections } from "@/lib/content";
 
@@ -23,9 +24,11 @@ export function SectionIndex({ section, entries }: { section: Section; entries: 
           <p className="py-10 text-center text-ink-soft">New {s.label.toLowerCase()} are on the way. Check back soon!</p>
         )}
       </div>
-      <div className="mt-16">
-        <EmailSignup placement={section} />
-      </div>
+      {site.newsletter && (
+        <div className="mt-16">
+          <EmailSignup placement={section} />
+        </div>
+      )}
     </div>
   );
 }

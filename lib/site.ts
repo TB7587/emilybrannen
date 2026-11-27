@@ -16,5 +16,7 @@ export const site = {
     tiktok: "https://www.tiktok.com/@yourhandle",
   },
   amazonStorefront: "https://www.amazon.com/shop/yourhandle",
+  // The weekly email signup is switched off for now. Set to true to bring it back everywhere.
+  newsletter: false,
   disclosure: "As an Amazon Associate I earn from qualifying purchases.",
 } as const;
