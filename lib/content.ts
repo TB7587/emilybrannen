@@ -25,6 +25,25 @@ type Base = {
   body: string;
 };
 
+/**
+ * One box in the "read left to right" recipe table. A plain string is an ingredient
+ * ("4 cans | corn"); an object is an action on the things listed under `with`.
+ */
+export type MethodNode = string | { do: string; note?: string; with: MethodNode[] };
+
+function methodLeaves(node: MethodNode): string[] {
+  return typeof node === "string" ? [node] : node.with.flatMap(methodLeaves);
+}
+
+/** "4 cans | corn" -> "4 cans corn"; "to taste | salt" -> "salt, to taste". */
+function leafToIngredient(leaf: string): string {
+  const i = leaf.indexOf("|");
+  if (i === -1) return leaf.trim();
+  const amount = leaf.slice(0, i).trim();
+  const name = leaf.slice(i + 1).trim();
+  return /^(to taste|as needed)$/i.test(amount) ? `${name}, ${amount}` : `${amount} ${name}`;
+}
+
 export type Recipe = Base & {
   // Everything below is optional, so a recipe can go up with just a caption and video link
   // and be filled in later. The page only shows the parts that are there.
@@ -34,6 +53,8 @@ export type Recipe = Base & {
   ingredientsHeading?: string; // e.g. "Alfredo sauce" when the list is for one part of the dish
   ingredients: string[];
   steps: string[];
+  /** Optional: draws the recipe as a left-to-right table. Ingredients are read from it. */
+  method?: MethodNode;
 };
 
 export type Project = Base & {
@@ -75,7 +96,8 @@ function load<T extends Base>(section: Section): T[] {
       return {
         ...data,
         products,
-        ingredients: data.ingredients ?? [],
+        // With a `method` table, the ingredient list comes from it, so it is only typed once.
+        ingredients: data.ingredients ?? (data.method ? methodLeaves(data.method).map(leafToIngredient) : []),
         materials: data.materials ?? [],
         steps: data.steps ?? [],
         // YAML turns unquoted dates into Date objects; normalize to a string.

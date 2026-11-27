@@ -29,7 +29,6 @@ function svg({ w, h, from, to, accent, label, sub = "placeholder photo" }) {
 }
 
 const images = [
-  ["author.jpg", { w: 800, h: 800, from: "#f2ede4", to: "#ddd4c6", accent: "#cdbfae", label: "Your photo here", sub: "800 x 800" }],
   // Products, square
   ...[
     ["cast-iron-skillet", "Cast Iron Skillet", "#4a4541"],

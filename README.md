@@ -105,6 +105,26 @@ Only `title`, `slug`, `date`, `category`, `heroImage` and `keyword` are required
 - `ingredientsHeading: Alfredo sauce` labels a list that covers only part of the dish.
 - No photo yet? Run `node scripts/make-placeholders.mjs` to make a simple title card at the `heroImage` path. It never overwrites a real photo.
 
+### The "For Husbands" table
+
+Add a `method` block to a recipe and the card also shows the whole recipe as one left-to-right table, titled "For Husbands". Each `do` is a box; the things listed under `with` are what it acts on (ingredients, or earlier boxes). Write ingredients as `amount | name`. When `method` is there you can leave out `ingredients`; the list is read from it. Keep `steps` for the normal instructions.
+
+```yaml
+method:
+  do: Serve
+  note: hot
+  with:
+    - do: Season
+      note: to taste
+      with:
+        - do: Cook
+          note: in a large pot over medium heat, stirring until combined
+          with:
+            - 4 cans | corn
+            - 7 tbsp | butter
+        - to taste | salt and pepper
+```
+
 Tips: if a line of text contains a colon, wrap it in quotes (`- "Tip: use salted butter"`). If a required field is missing the build fails with a message naming the file and field, so a broken page can't go live.
 
 ## Where things live

@@ -3,6 +3,7 @@ import type { Recipe } from "@/lib/content";
 import { formatMinutes } from "@/lib/format";
 import { site } from "@/lib/site";
 import { Checklist } from "./Checklist";
+import { MethodGrid } from "./MethodGrid";
 import { OutboundLink } from "./OutboundLink";
 import { PrintButton } from "./PrintButton";
 import { InstagramIcon } from "./SocialIcons";
@@ -95,6 +96,21 @@ export function RecipeCard({ recipe }: { recipe: Recipe }) {
           <p className="mt-2 text-ink-soft">The step-by-step is in the video.</p>
         )}
       </div>
+
+
+      {/* "For Husbands": the same recipe as one left-to-right table */}
+      {recipe.method && (
+        <div className="for-husbands border-t border-ink px-2.5 pb-5 pt-6 sm:px-5">
+          <div className="px-2.5 text-center sm:px-0">
+            <p className="eyebrow">The short version</p>
+            <h3 className="mt-1.5 text-[1.7rem]">For Husbands</h3>
+            <p className="mx-auto mb-4 mt-1.5 max-w-sm text-[0.88rem] leading-snug text-ink-soft">
+              The whole recipe in one picture. Read left to right: each box combines everything to its left.
+            </p>
+          </div>
+          <MethodGrid method={recipe.method} title={recipe.title} />
+        </div>
+      )}
 
       {/* Sign-off, so a printed or screenshotted card still says where it came from */}
       <p className="border-t border-linen bg-oat px-5 py-3 text-center text-[0.72rem] font-medium uppercase tracking-[0.2em] text-ink-soft print:bg-transparent">

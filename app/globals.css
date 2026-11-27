@@ -76,4 +76,6 @@ h1, h2, h3 {
   li { break-inside: avoid; }
   .recipe-card { border: 0 !important; margin-top: 0 !important; }
   .recipe-card > * { padding-left: 0 !important; padding-right: 0 !important; }
+  .method-scroll { margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+  .for-husbands { break-inside: avoid; padding-top: 14pt !important; }
 }
