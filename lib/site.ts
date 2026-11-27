@@ -11,7 +11,7 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://emilybrannen.com",
   // TODO: replace with her real profiles and storefront.
   social: {
-    instagram: "https://www.instagram.com/yourhandle",
+    instagram: "https://www.instagram.com/emilybrannen",
     facebook: "https://www.facebook.com/yourpage",
     tiktok: "https://www.tiktok.com/@yourhandle",
   },
